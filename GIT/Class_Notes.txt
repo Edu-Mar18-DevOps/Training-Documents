@@ -250,6 +250,71 @@ Day 2 - 19th Mar. 2024
 			
 			git log 
 			
+  501  cd d:
+  502  mkdir Edu_DevOps_Mar18
+  503  cd Edu_DevOps_Mar18/
+  504  mkdir ProjectRepo1
+  505  cd ProjectRepo1/
+  506  pwd
+  507  clear
+  508  cd ..
+  509  mkdir ProjectRepo2
+  510  ls
+  511  cd ProjectRepo1/
+  512  clear
+  513  ls
+  514  git init
+  515  ls
+  516  ls -a
+  517  cd .git/
+  518  ls
+  519  cd ..
+  520  ls
+  521  clear
+  522  ls
+  523  ls -a
+  524  cd .git/
+  525  ls
+  526  cd ..
+  527  clear
+  528  git status
+  529  ls
+  530  echo "Hello"
+  531  echo "Record" >> file1.txt
+  532  ls
+  533  cat file1.txt
+  534  git status
+  535  git add file1.txt
+  536  git status
+  537  ls
+  538  git commit -m "Created file1.txt"
+  539  git log
+  540  ls
+  541  echo "rec" >> file2.txt
+  542  git status
+  543  git add file2.txt
+  544  git status
+  545  git commit -m "Created file2.txt"
+  546  git log
+  547  git status
+  548  clear
+  549  git log
+  552  git config user.name "Loksai"
+  553  git log
+  554  echo "rec1" >> file3.txt
+  555  git add .
+  556  git commit -m "created file3.txt"
+  557  git log
+  558  cd ..
+  559  clear
+  560  cd ProjectRepo2
+  561  git init
+  562  echo "rec" >> f1.txt
+  563  git add f1.txt
+  564  git commit -m "Created f1.txt"
+  565  git log
+  566  git status
+  567  history
 		
 				
 		
