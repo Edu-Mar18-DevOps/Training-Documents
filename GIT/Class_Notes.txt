@@ -1,0 +1,255 @@
+
+########################
+Day 2 - 19th Mar. 2024
+########################
+
+	DevOps LifeCycle :::
+	
+		DevOps Pipeline :
+		
+		Developer
+		
+		Coding 	--> Build	--> Create Artifacts	--> Unit Testing --> Deploy to QA --> QA Testing --> UAT --> UAT Testing 	--> Deploy to Prod --> Monitor 
+		
+	Infra-Structure Provisioning and Configurations :::
+	
+		To Automate Server Provisioning & Configuration using Ansible/Terraform
+		
+		Coding --> SCM_Checkout --> Provisioning(Using Terraform) --> Configuration(Using Ansible)
+		
+		
+	Pipeline 1: 
+	
+		Coding --> SCM_Checkout --> Provisioning(Using Terraform) --> Configuration(Using Ansible)
+		
+	Pipeline 2:
+	
+		Coding 	--> Build	--> Create Artifacts	--> Unit Testing --> Deploy to QA --> QA Testing --> UAT --> UAT Testing 	--> Deploy to Prod --> Monitor 
+		
+	
+	Continuous Development :::
+	
+		Version Control System using GIT :
+		
+		
+		Application Project :
+		
+		Java_web_application: 
+		
+		Eclipse based IDE 
+		
+		Java_web_application Folder :
+		
+			- src/main/java
+				sigin.java 
+				payment.java 
+			- resource 
+				index.html
+				
+				
+		file: 
+		
+		index.html
+		
+			<html>
+			--
+			---
+			-
+			---
+			</html>
+			
+		save - index.html - unit testing 
+			
+			<html>
+			--
+			---
+			-
+			---
+			--
+			-
+			-
+			-
+			-
+			---
+			</html>		
+
+		save - index.html - testing 
+		
+		
+		Version Control System: 
+		
+			- Is used to version control the source changes 
+			- Is used to track the changes.
+			
+			
+			<html>
+			--
+			---
+			-
+			---
+			--
+			-
+			-
+			-
+			-
+			---
+			</html>		
+
+		save - 	index.html_v1.0		- (Tag/Version_Number/Commit_id)
+				index.html_v1.1
+				index.html_v1.2
+				index.html_v1.3
+				index.html_v1.4		--> Testing 
+					
+					
+		Types of VCS ::
+			
+			1. Local VCS 
+			2. Centralized VCS
+			3. Distributed VCS 
+			
+			
+		GIT ::
+		
+			- Is a Open-Source Distributed Version Control System 
+			- Is used to Version control the source code changes 
+			- Is used Track the changes in code 
+			- Is used perform parallel development using Branching Techniques
+			
+		
+		Terminologies ::
+		
+		Local Machine																				Remote Server 
+			
+		
+		git client 
+		
+		github ( Remote Repository )
+		
+		Install git client in local Machine ::
+		
+		In Windows : git bash terminal to work with git.
+		
+		Git File Workflow :::
+		
+		Developers' Workload ::
+		
+			- Enhancement Project / Bug fixing 
+			
+			- New Project 
+			
+		
+		Local Machine																											Remote Server 
+			(Git Client)
+			
+			Working Directory 	------>		Staging Area		------> 	Local Repository 			------->					Remote Repository
+			
+			index.html 			  add		index.html			commit			index.html_v1.0
+			index.html 			  add		index.html			commit			index.html_v1.1
+			index.html 			  add		index.html			commit			index.html_v1.2
+			index.html 			  add		index.html			commit			index.html_v1.3			 	Push							index.html_v1.3 
+		
+		GIT Cli Commands: 
+		
+		
+		
+		git clone 		-	Is used to copy/clone the entire remote repository to Local Machine 
+		
+		git add 		-	Is used to add the changes from working directory to staging area 
+		
+		git commit 		- 	Is used to permanently commit the changes from staging area to local repository
+		
+		git push 		- 	Is used to push the changes from local repository to remote repository
+		
+		git fetch / git pull :
+				
+				- Both git fetch and pull commands are used to handle the incremental changes from remote repository.
+				
+				- git fetch :
+					- It is just used to check for the incremental changes. If it exist it will bring the incremental change from remote repository to local repository. But it will NEVER update the Working Directory.
+					
+				- git pull :
+					- It is used to check for the incremental changes. If there is any incremental changes exist in remote repository, it will bring the incremental change from remote repository to local repository as well as to the Working Directory.
+						
+					git pull -> fetch + merge
+					
+		git init 		- 	Is used to initialize/create a repository in local machine 
+							It will create .git directory and a default master/main branch.
+							
+		Fork 			- 	Is used copy one remote repository to another remote repository
+					
+					
+		- Install Git Cli in Local Machine 
+
+		- Working with Misc. GIT Commands 
+		
+		- GIT Branching Techniques
+
+		- Remote Repository Handling 
+		
+			- github 
+			- Azure Repository 
+			- gitlab
+			- AWS Code Commit 
+			- bit bucket 
+					
+		How to Install git in local machine?	https://git-scm.com/downloads
+		
+			In Windows Machines :
+				- GIT BASH	==> git cli commands. 
+				- GIT GUI	
+				- GIT CMD 
+		
+		
+		Working with GIT Commands :::
+
+			Project Folder Structure :::
+			
+			d:/EDU_Mar18_DevOps/Repo1 
+			
+			cd d: 
+			mkdir EDU_Mar18_DevOps
+			cd EDU_Mar18_DevOps
+			mkdir Repo1 
+			mkdir Repo2
+			
+		Local Machine																					
+			(Git Client)
+			
+			Working Directory 	------>		Staging Area		------> 	Local Repository 	
+
+				file1.txt		 add 		file1.txt 			commit 		
+
+			git config ::
+			
+				Local Configuration			# it is applicable within a specific repository
+				
+					git config user.name "Loksai"
+					git config user.email "Loksai@asdf.com"
+				
+				
+				Global Configuration		# it is applicable to all the repositories
+			
+					git config --global user.name "Loksai"
+					git config --global user.email "Loksai@asdf.com"			
+		
+		Execute: 
+					
+			git init 
+
+			git config --global user.name "Loksai"
+			git config --global user.email "Loksai@asdf.com"			
+
+			echo "rec1" >> file1.txt 
+			
+			git add file1.txt
+			
+			git commit -m "Created file1.txt"
+			
+			git status
+			
+			git log 
+			
+		
+				
+		
