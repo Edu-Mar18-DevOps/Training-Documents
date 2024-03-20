@@ -316,5 +316,447 @@ Day 2 - 19th Mar. 2024
   566  git status
   567  history
 		
+########################
+Day 3 - 20th Mar. 2024
+########################		
 				
+				
+		Git Misc. Commands!
+		
+		
+		GIT ADD :
+		
+			git add file1.txt 
+			
+			git add f1.txt f2.txt 
+			
+			git add *.java 
+			
+			git add .
+					
+		
+		GIT LOG ::
+		
+			git log 
+			
+			git log --oneline 
+			
+			git log --stat 
+			
+			git log --oneline -2 
+			
+		GIT COMMIT ::
+		
+			Used to make a permanent commit in the repository
+			
+			git commit -m <Commit_Message>
+			
+			git commit -m "CR1001/REL1002 - Update payment func."
+			
+			
+		git show <commit_id> 	# review the changes in a specific commit 
+		
+		git show <commit_id1> <commit_id1> 
+		
+		git status 
+		
+		git diff 	- Used to compared the uncommitted changes with the committed changes 
+		
+		Repo1: 
+		
+		working dir 	-----> staging area 	--->  Local Repo
+		
+		Undo/Revert the changes from staging area :
+
+			git rm --cached <file_name>		# Take the changes back to working directory
+			
+			git rm -f <file_name>			# Permanently remove the file from staging area as well as from working directory
+			
+		
+		Revert/Reset from Local Repository :::
+		
+		
+		GIT RESET :
+		
+				- It is used to undo the changes from the repository
+				- It will move the HEAD Pointer to the previous commit point 
+				- It will not create any New Commit Point for tracking the changes 
+				
+				- It is not recommended to use git reset(--hard)in Shared repository 
+				
+			Syntax :
+			
+				git reset <reset_option> <prev_commit_Id>
+				
+				Git reset option :
+				
+					--soft :
+							It will move the Head pointer back to previous/specific commit point.
+							It will take the changes back to staging area from local repository
+							The file will be available in staging area as well as in working directory.
+							It will never create a new commit point for tracking 
+							
+							
+					
+					--mixed 		# Default 
+							It will move the Head pointer back to previous/specific commit point.
+							It will take the changes back to working directory from local repository
+							The file will be available only in working directory.
+							It will never create a new commit point for tracking 
+
+							
+					--hard 
+							It will move the Head pointer back to previous/specific commit point.
+							It will permanently remove the changes from local repository as well as working directory
+							It will never create a new commit point for tracking 				
+		
+		
+				git reset <commit_id> 		# Perform reset --mixed .
+				
+				
+				git ls-files 		# to get the list of files being tracked by git
+			
+			
+		git revert :::
+		
+			- git revert is same as git reset --hard, because it a permanent deletion.
+			
+			- It is used to undo the specific commit 
+
+			- Only difference is git revert will create a new commit point for tracking purpose
+				- But, git reset will not have any new commit point. 
+				
+			- It is always recommended to use git revert in the shared repository
+			
+			git revert <commit_id> 
+			
+			
+		git ignore :::
+		
+			- Is used to ignore the file from tracking by git.
+			
+			- create .gitignore file in the repo 
+			
+			- .gitignore should be the very first commit as a best practise.
+		
+		Local Machine:													====> 			Remote Repo.
+		
+		Java_web_application
+		
+			src/
+				sign.java
+				payment.java 
+				index.jsp 
+				index_testcase1.java 
+			target/
+				*.war
+				*.jar 
+			App_properties 
+				complier_options
+				Envi_variables
+			secret 
+			db_credentials 
+			
+  506  mkdir repo1
+  507  cd repo1/
+  508  git init
+  509  git status
+  510  echo "rec1" >> f1.txt
+  511  git add f1.txt
+  512  git commit -m "Created f1.txt"
+  513  clear
+  514  git log
+  515  ls
+  516  echo "rec1" >> f2.txt
+  517  git add f2.txt
+  518  echo "rec1" >> f3.txt
+  519  git add f3.txt
+  520  git status
+  521  echo "rec1" >> s1.txt
+  522  echo "rec1" >> q1.java
+  523  echo "rec1" >> q2.java
+  524  echo "rec1" >> l1.html
+  525  echo "rec1" >> l2.html
+  526  echo "rec1" >> s1.doc
+  527  echo "rec1" >> e1.md
+  528  clear
+  529  ls
+  530  git status
+  531  git add e1.md l1.html
+  532  git status
+  533  git add *.java
+  534  git status
+  535  git add .
+  536  git status
+  537  git commit -m "Created some files"
+  538  git status
+  539  git log
+  540  clear
+  541  git log
+  542  git log --oneline
+  543  git log --oneline
+  544  git show 3a1e997
+  545  clear
+  546  git log --oneline
+  547  echo "rec1" >> l1.java
+  548  git add .
+  549  git commit -m "created l1.java"
+  550  echo "rec1" >> l2.java
+  551  git add .
+  552  git commit -m "created l2.java"
+  553  echo "rec1" >> l3.java
+  554  git add .
+  555  git commit -m "created l3.java"
+  556  echo "rec1" >> l4.java
+  557  git add .
+  558  git commit -m "created l4.java"
+  559  git commit -m "created l5.java"
+  560  echo "rec1" >> l5.java
+  561  git add .
+  562  git commit -m "created l5.java"
+  563  clear
+  564  git log
+  565  clear
+  566  git log
+  567  clear
+  568  git log --oneline
+  569  git log --oneline -2
+  570  git log --oneline -3
+  571  clear
+  572  git log -2
+  573  git log --stat -2
+  574  git log --stat -1
+  575  git log --stat
+  576  clear
+  577  git log --oneline
+  578  git status
+  579  cd ..
+  580  cd repo1/
+  581  clear
+  582  ls
+  583  cat e1.md
+  584  echo "rec2" >> e1.md
+  585  echo "rec3" >> e1.md
+  586  cat e1.md
+  587  git status
+  588  git diff
+  589  git add .
+  590  git commit -m "updated e1.md"
+  591  c
+  592  clear
+  593  ls
+  594  git status
+  595  cd ..
+  596  mkdir repo2
+  597  cd repo2
+  598  git init
+  599  clear
+  600  ls
+  601  echo "rec1" >> f1.txt
+  602  git add .
+  603  git status
+  604  git rm --cached f1.txt
+  605  git status
+  606  ls
+  607  git add .
+  608  echo "rec1" >> f2.txt
+  609  echo "rec1" >> f3.txt
+  610  echo "rec1" >> f4.txt
+  611  echo "rec1" >> f5.txt
+  612  echo "rec1" >> f5.java
+  613  clear
+  614  git status
+  615  git add .
+  616  clear
+  617  git status
+  618  git rm --cached f1.txt
+  619  git rm --cached f5.txt f5.java
+  620  git status
+  621  git add .
+  622  clear
+  623  git status
+  624  git rm -f f5.java
+  625  git status
+  626  ls
+  627  git commit -m "Created"
+  628  clear
+  629  git log
+  630  clear
+  631  cd ..
+  632  mkdir repo3
+  633  cd repo3
+  634  clear
+  635  git init
+  636  echo "rec1" >> s1.txt
+  637  git add .
+  638  git commit -m "CM1"
+  639  echo "rec1" >> s2.txt
+  640  git add .
+  641  git commit -m "CM2"
+  642  echo "rec1" >> s3.txt
+  643  git add .
+  644  git commit -m "CM3"
+  645  echo "rec1" >> s4.txt
+  646  git add .
+  647  git commit -m "CM4"
+  648  echo "rec1" >> s5.txt
+  649  git add .
+  650  git commit -m "CM5"
+  651  clear
+  652  ls
+  653  git ls-files
+  654  echo "rec1" >> s6.txt
+  655  git status
+  656  ls
+  657  git ls-files
+  658  git add .
+  659  git ls-files
+  660  clear
+  661  git log --oneline
+  662  ls
+  663  git ls-files
+  664  git status
+  665  git commit -m "CM6"
+  666  clear
+  667  git log --oneline
+  668  ls
+  669  git ls-files
+  670  git status
+  671  git reset --soft fffe8a1
+  672  git status
+  673  ls
+  674  git ls-files
+  675  git log --oneline
+  676  git commit -m "CM6.1"
+  677  clear
+  678  git log --oneline
+  679  ls
+  680  git ls-files
+  681  git status
+  682  git reset --mixed fffe8a1
+  683  git status
+  684  ls
+  685  git ls-files
+  686  git log --oneline
+  687  git add .
+  688  git commit -m "CM6.2"
+  689  clear
+  690  git log --oneline
+  691  ls
+  692  git ls-files
+  693  git status
+  694  git reset --hard fffe8a1
+  695  git status
+  696  ls
+  697  git ls-files
+  698  git log --oneline
+  699  git reset --hard be4a780
+  700  ls
+  701  git log --oneline
+  702  git reset --hard a7608ad
+  703  git log
+  704  ls
+  705  git ls-files
+  706  git status
+  707  git log --oneline
+  708  clear
+  709  clear
+  710  ls
+  711  git log --oneline
+  712  echo "rec1" >> q1.txt
+  713  git add .
+  714  git commit -m "CM2"
+  715  echo "rec1" >> q2.txt
+  716  git add .
+  717  git commit -m "CM3"
+  718  echo "rec1" >> q3.txt
+  719  git add .
+  720  git commit -m "CM4"
+  721  clear
+  722  ls
+  723  git log -oneline
+  724  git log --oneline
+  725  git ls-files
+  726  git revert 0112f31
+  727  git log --oneline
+  728  clear
+  729  git log --oneline
+  730  ls
+  731  git show 7ac261f
+  732  clear
+  733  git log --oneline
+  734  git revert 7ac261f
+  735  ls
+  736  git log --oneline
+  737  git reflog
+  738  git log
+  739  clear
+  740  git reflog
+  741  git log --oneline
+  742  clear
+  743  ls
+  744  git status
+  745  rm s1.txt
+  746  ls
+  747  clear
+  748  git status
+  749  git add .
+  750  git commit -m "Deleted"
+  751  clear
+  752  ls
+  753  git status
+  754  cd ..
+  755  mkdir repo4
+  756  clear
+  757  cd repo4
+  758  git init
+  759  ls
+  760  ls -a
+  761  vi .gitignore
+  762  git status
+  763  git add .
+  764  git commit -m "Initial Commit"
+  765  clear
+  766  ls
+  767  ls -a
+  768  echo "rec1" >> s1.java
+  769  git status
+  770  cat .gitignore
+  771  echo "rec1" >> sample.txt
+  772  git status
+  773  ls
+  774  echo "rec1" l.war
+  775  echo "rec1" >> l.war
+  776  git status
+  777  ls
+  778  cat .gitignore
+  779  git add .
+  780  git commit -m "CM1"
+  781  clear
+  782  ls
+  783  ls -a
+  784  ls
+  785  git ls-files
+  786  vi .gitignore
+  787  git add .
+  788  git commit - "asdf"
+  789  clear
+  790  git status
+  791  git commit -m "asdf"
+  792  clear
+  793  cat .gitignore
+  794  vi .gitignore
+  795  git status
+  796  git commit -m "asdf"
+  797  git add .
+  798  git commit -m "asdf"
+  799  clear
+  800  cat .gitignore
+  801  ls
+  802  cd ..
+  803  history
+			
+Next :
+	
+	GIT Branching :::				
 		
