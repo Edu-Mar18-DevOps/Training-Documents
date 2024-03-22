@@ -1226,3 +1226,324 @@ Day 4 - 21st Mar. 2024
   500  exit
   501  history
 
+########################
+Day 5 - 22nd Mar. 2024
+########################		
+	
+	
+	Handling git remote repositories - GITHUB 
+	
+	Build Orcchestration Tool - Jenkins
+
+		GIT Stash :::
+		
+			- It is used to save the uncommitted changes to temporary area.
+			
+			LIFO
+			
+			- git stash save "<message>"	# to create stash entry
+			
+			- git stash list 			# used to get the list of stashed entires
+			
+			- git stash apply			# used to apply/copy the latest entry from stash list back to staging area.
+			
+			- git stash apply stash@{2} # used to apply/copy the specific entry from stash list back to staging area.
+			Eg.: 	
+				git stash apply stash@{2} stash@{1}
+				
+			- git stash drop 			# delete/drop the latest entry from stash list
+			
+			- git stash drop stash@{2}  # used to drop the specific entry from stash list
+			
+			- git stash pop				# used to move the lastest entry from stash list back to staging area.
+					pop = apply & drop 
+			- git stash pop stash@{2}   # used to move the specific entry from stash list back to staging area.
+			
+			- git stash clear 			# Used to clean-up the entire stash list
+			
+			- git stash branch temp-feature1 # Used to move the changes to a temp branch.
+			
+			
+	
+	
+	Handling git remote repositories - GITHUB 
+		
+		Developers' Workload
+		
+			- Enhancement Project / Bugfix 
+			
+			- New Project 
+			
+			
+		git clone 		-	Is used to copy/clone the entire remote repository to Local Machine 
+		
+		git add 		-	Is used to add the changes from working directory to staging area 
+		
+		git commit 		- 	Is used to permanently commit the changes from staging area to local repository
+		
+		git push 		- 	Is used to push the changes from local repository to remote repository
+		
+		git fetch / git pull :
+				
+				- Both git fetch and pull commands are used to handle the incremental changes from remote repository.
+				
+				- git fetch :
+					- It is just used to check for the incremental changes. If it exist it will bring the incremental change from remote repository to local repository. But it will NEVER update the Working Directory.
+					
+				- git pull :
+					- It is used to check for the incremental changes. If there is any incremental changes exist in remote repository, it will bring the incremental change from remote repository to local repository as well as to the Working Directory.
+						
+					git pull -> fetch + merge
+					
+					
+		git remote -v 	-	Is used to list the remote repositories linked to the local repository
+
+		git remote add 	-	Used to add/link a remote repository to local repository
+		
+		git remote remove - Used to remove/unlink a remote repository from local repository
+			
+
+		- Enhancement Project / Bugfix 
+			
+			First we have remote repository 
+				
+			
+		Pull Request 	- Will be created by the Developers and submitted to the reviewer/approver 	
+		
+		
+		git clone 	- 
+		
+			git clone https://github.com/Edu-Mar18-DevOps/testrepo1.git
+			
+			
+		git push 	-
+
+			git push -u origin <branch_name>
+			
+			User Credentials are required to push the changes to remote repository 
+					
+			github - User_Id & Access Token
+			
+			
+		As a best practise always use git pull before git push. (As like rebase between the branches)	
+		
+		
+		New Project :
+		
+		
+			git init :
+			
+			
+			git branch -M master		# used to rename the branch
+		
+			git branch -D master		# used to delete the branch 
+			
+  501  cd d:
+  502  cd Edu_DevOps_Mar18/
+  503  ls
+  504  mkdir samplerepo1
+  505  cd samplerepo1/
+  506  clear
+  507  git init
+  508  echo "rec1" >> f1.txt
+  509  git add .
+  510  git commit -m "cm1"
+  511  git switch -c feature1
+  512  clear
+  513  ls
+  514  git status
+  515  git branch
+  516  echo "rec1" >> l1.txt
+  517  git add .
+  518  git status
+  519  git switch master
+  520  git status
+  521  git switch feature1
+  522  git status
+  523  clear
+  524  ls
+  525  gitl ls-files
+  526  git ls-files
+  527  git status
+  528  git stash save "created l1.txt"
+  529  git stash list
+  530  ls
+  531  git status
+  532  git ls-files
+  533  git switch master
+  534  git switch feature1
+  535  git stash list
+  536  git stash apply
+  537  git stash list
+  538  ls
+  539  git commit -m "created l1.txt"
+  540  git stash list
+  541  git stash drop
+  542  git stash list
+  543  clear
+  544  echo "rec1" >> w1.txt
+  545  git add .
+  546  git stash list
+  547  git stash save "for w1.txt"
+  548  echo "rec1" >> w2.txt
+  549  git add .
+  550  git stash save "for w2.txt"
+  551  echo "rec1" >> w3.txt
+  552  git add .
+  553  git stash save "for w3.txt"
+  554  echo "rec1" >> w4.txt
+  555  git add .
+  556  git stash save "for w4.txt"
+  557  clear
+  558  git stash list
+  559  git status
+  560  git stash pop
+  561  git stash list
+  562  ls
+  563  git stash apply stash@{2}
+  564  git stash list
+  565  git commit -m "asdf"
+  566  git stash list
+  567  git stash clear
+  568  git stash list
+  569  clear
+  570  cd ..
+  571  mkdir remoterepos
+  572  cd remoterepos/
+  573  clear
+  574  git clone https://github.com/Edu-Mar18-DevOps/testrepo1.git
+  575  ls
+  576  cd testrepo1/
+  577  ls
+  578  git status
+  579  git remote -v
+  580  ls
+  581  git log --onelie
+  582  git log --oneline
+  583  git switch -c localfeature1
+  584  ls
+  585  echo "rec1" >> localfile1.txt
+  586  git add .
+  587  git commit -m "Create localfile1.txt"
+  588  ls
+  589  git status
+  590  git log --oneline
+  591  git push -u origin localfeature1
+  592  clear
+  593  ls
+  594  git switch main
+  595  ls
+  596  git status
+  597  git fetch
+  598  git status
+  599  git log --oneline
+  600  ls
+  601  git pull
+  602  ls
+  603  git status
+  604  git status
+  605  git pull
+  606  git remote -v
+  607  git remote remove origin
+  608  git remote -v
+  609  git remote add origin https://github.com/Edu-Mar18-DevOps/testrepo1.git
+  610  clear
+  611  cd ..
+  612  mkdir testrepo2
+  613  cd testrepo2
+  614  git init
+  615  echo "rec1" >> file1.txt
+  616  git add .
+  617  git commit -m "Created file1.txt"
+  618  clear
+  619  ls
+  620  git  log --oneline
+  621  git remote -v
+  622  git remote add origin https://github.com/Edu-Mar18-DevOps/testrepo2.git
+  623  git remote -v
+  624  git branch -M main
+  625  git branch -M master
+  626  git push -u origin master
+  627  git branch feature1
+  628  git branch
+  629  git branch -D feature1
+  630  git branch
+  631  clear
+  632  git remote -v
+  633  git remote add origin1 https://github.com/Edu-Mar18-DevOps/testrepo1.git
+  634  git remote -v
+  635  git remote remove origin1
+  636  git log --oneline
+  637  cd ..
+  638  cd ..
+  639  history
+
+GIT Module ::
+
+	Summary :
+		git workflow 
+		reset/revert/stash 
+		branch 
+		branching strategies 
+		merge 
+		merge conflict
+		rebase / squash 
+		remote repos 
+		pull request 
+		
+		hotfix/bugfix 	==> temporary branch used to handle the production issues.
+		
+		
+Jenkins ::::
+		
+	- Build Orchestration tool :::
+	- CICD Pipelines :::
+		
+			Using DevOps Approach::
+			
+				- Create Source Code 
+				- Save/Commit the Source Code in a Source Repository.
+				
+			Automate the process using DevOps Tools :
+				- Build Application - 
+					- Build - Is a process of compiling the source code and create artifacts(Binaries - *.war/*.jar/*.exec/*.dll)
+				- Perform Unit Testing 
+				- Promote the code to higher environments (QA / UAT / Prod)
+				- Notify the Testing team thru emails 
+		
+		
+		Jenkins is a build orchestration Tool :
+			- Used to create end-to-end CICD Pipeline 
+			
+		
+		Jenkins Architecture :
+			-	Master/Slave Architecture
+				
+				VM - Jenkins 
+				Jenkins_master 	--> Tools : jdk, jenkins, maven/gradle, python, .netcore,nodejs  
+				
+				Jenkins_Master (VM)	--> jdk, jenkins 
+								==> Used to create the Jenkins CICD pipeline project and schedule it to run in slave nodes.
+					Jenkins_Slave1 (VM) --> git, jdk, maven 
+					Jenkins_Slave2 (VM) --> git, python
+					Jenkins_Slave2.1 (VM) --> git, python
+					Jenkins_Slave3 (VM) --> git, .netcore
+					Jenkins_Slave4 (VM) --> git, Angualar/NodeJS
+					
+		
+		Jenkins:
+		
+			Developers' Perspective 
+				- Consumers of Jenkins 
+				
+			DevOps Perspective ::
+				- Own the Jenkins Architecture:
+				
+			
+		DevOps Roles/Responsibilites in Jenkins :
+		
+		Cloud Account 
+		
+			Azure-AWS Cloud Platform ;
+				Free tier account 
+
