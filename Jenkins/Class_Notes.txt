@@ -1,0 +1,217 @@
+########################
+Day 5 - 22nd Mar. 2024
+########################		
+		
+Jenkins ::::
+		
+	- Build Orchestration tool :::
+	- CICD Pipelines :::
+		
+			Using DevOps Approach::
+			
+				- Create Source Code 
+				- Save/Commit the Source Code in a Source Repository.
+				
+			Automate the process using DevOps Tools :
+				- Build Application - 
+					- Build - Is a process of compiling the source code and create artifacts(Binaries - *.war/*.jar/*.exec/*.dll)
+				- Perform Unit Testing 
+				- Promote the code to higher environments (QA / UAT / Prod)
+				- Notify the Testing team thru emails 
+		
+		
+		Jenkins is a build orchestration Tool :
+			- Used to create end-to-end CICD Pipeline 
+			
+		
+		Jenkins Architecture :
+			-	Master/Slave Architecture
+				
+				VM - Jenkins 
+				Jenkins_master 	--> Tools : jdk, jenkins, maven/gradle, python, .netcore,nodejs  
+				
+				Jenkins_Master (VM)	--> jdk, jenkins				
+								==> Used to create the Jenkins CICD pipeline project and schedule it to run in slave nodes.
+					Jenkins_Slave1 (VM) --> git, jdk, maven 
+					Jenkins_Slave2 (VM) --> git, python
+					Jenkins_Slave2.1 (VM) --> git, python
+					Jenkins_Slave3 (VM) --> git, .netcore
+					Jenkins_Slave4 (VM) --> git, Angualar/NodeJS
+					
+		
+		Jenkins:
+		
+			Developers' Perspective 
+				- Consumers of Jenkins 
+				
+			DevOps Perspective ::
+				- Own the Jenkins Architecture:
+				
+			
+		DevOps Roles/Responsibilites in Jenkins :
+		
+		Cloud Account 
+		
+			Azure-AWS Cloud Platform ;
+				Free tier account 
+
+
+
+#######################
+Day 6 - 25th Mar. 2024
+#######################	
+
+
+		DevOps Perspective ::
+			- Own the Jenkins Architecture
+			- Jenkins Administrator!
+				
+		DevOps Roles/Responsibilites in Jenkins :
+		
+			- Installation of Jenkins 
+			- Plugins Management 
+			- User Managements
+			- Security Management
+			- Tools Management 
+			- Jenkins System Configurations
+			- Configure and Manage Jenkins Master & Slave Nodes 
+			- Create CICD Pipeline Projects/Jobs 
+			- Onboard the Application to Jenkins CICD Process 
+			- Trouble-shoot the issues 
+			- Periodic Upgrade of Jenkins and Plugins
+			- Back-Up & Restoration
+			
+		- Installation of Jenkins :
+		
+		Infra-Structure :
+		
+		AWS Cloud Platform 
+		
+		1. Create a AWS free-Tier Account - https://aws.amazon.com/console/
+		2. Create AWS EC2 Instances(Virtual Machine)
+				Linux Ubuntu v20.04
+		3. Connect to EC2 Instance 
+			- EC2 Instance Connect 
+			- SSH Agent in the Local Machine 
+				- MobaXterm  -> https://mobaxterm.mobatek.net/download.html
+				- Putty
+			- Terminal to connect
+		4. Login to EC2 Instance 
+		5. Installation of required Tools!
+		
+		Linux Machines :
+		
+			Linux Distributions:
+				- Debian/Ubuntu	- apt / apt-get 
+				- Centos/RHEL 	- yum
+				- Fedora		- dnf 	
+				- Amazon Linux  - dnf / yum
+				
+			Package Manager:
+				- Used to Manage the Linux Application Packages			
+				
+			- Linux Ubuntu v20.04
+		
+		AWS Regions 
+			Availability Zones / Data Center 
+				- Servers 
+					- VMs 
+			
+			1 VM --> 750 Hrs/Month 
+			
+			10 VMs --> 75 Hrs/Month 
+			
+		AWS EC2 Instance should be stopped if not in use	
+			
+		Install Jenkins: https://www.jenkins.io/doc/book/installing/ 
+			Set Jenkins to listen on port 8080
+			
+				Update the Inbound Rule with port 8080.
+				
+			
+		Jenkins_Master_Node(VM) - Install Jenkins 
+
+		Installation & Configuration of Jenkins :::
+		
+			AWS Cloud Platform :::
+			
+				Launch Ubuntu 20.04 (VM)
+						Install - git, jdk, jenkins 
+				Jenkins can be accessed using web browser!
+					open the default Jenkins port - 8080
+		
+			
+		https://www.jenkins.io/doc/book/installing/	
+
+Installation procedures :::
+
+	1. Install the pre-requisites 
+	2. Install the Actual tool 
+	3. Perform Post_Installation Activities
+	
+It is always recommended to use the official documentation to do the package management
+
+
+Install & Configure Jenkins Server :
+
+	- Refer to that tools/Service's Official Documentation.
+				https://www.jenkins.io/doc/book/installing/linux/
+
+1. Install the pre-requisites :::
+
+# Install Jdk:
+
+sudo -i 			
+sudo apt update -y
+sudo apt install openjdk-11-jre -y 						# previous version
+java -version						
+
+2. Install the Actual tool :::
+ 								
+#Install Jenkins:
+
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt-get update
+
+sudo apt-get install jenkins -y
+
+systemctl enable jenkins 
+systemctl status jenkins 
+systemctl start jenkins 
+systemctl stop jenkins 
+systemctl restart jenkins 
+
+
+
+3. Perform Post_Installation Activities :::
+
+jenkins --version 
+
+systemctl status jenkins 
+
+Open web browser :
+
+http://<Public_IP_Address>:8080/
+
+E.g.: http://13.201.70.24:8080/
+
+cat /var/lib/jenkins/secrets/initialAdminPassword			
+			
+					
+	-	Plugins Management
+		
+			https://plugins.jenkins.io/docker-plugin/
+
+Summary :			
+			- Installation of Jenkins 
+			- Plugins Management 
+			- User Managements
+			- Security Management
+			- Tools Management 
+			- Jenkins System Configurations
