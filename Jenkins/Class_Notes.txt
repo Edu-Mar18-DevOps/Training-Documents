@@ -215,3 +215,236 @@ Summary :
 			- Security Management
 			- Tools Management 
 			- Jenkins System Configurations
+
+#######################
+Day 7 - 26th Mar. 2024
+#######################		
+
+
+	- Create Jenkins Jobs/Project
+	
+		- Free-Style Projects 
+			- Manual config
+			
+			Variables :
+			
+				- Environment Variables 	- Jenkins reserved key-words
+				
+					"${var_name}"
+				
+				- User Defined Variables 
+					
+					x = 5;
+		
+		- Pipeline Projects
+			- The Task definitions are done through groovy script
+			- It can be reusable 
+			
+		Pipeline :
+		
+			Stages {
+				stage1
+				{
+					step1
+					step2
+				}
+				stage1
+				{
+					step1
+					step2
+				}
+				}
+				
+		CI-CD 
+		
+		-> SCM-Checkout
+		-> Application Build 
+		-> Deploy to Target_Environment
+		
+			Jenkins Pipelines :
+				- Scripted Pipelines - Core Groovy Scripting Knowledge is required
+					- 
+				
+				- Declarative Pipelines
+					- Snippet Generator 
+					- It is easy to write & maintain/ Enhance
+		
+		
+		gitlab-ci 			Declarative Scripting Language - *.yaml
+		az_pipeline
+		aws_code_pipeline
+
+pipeline {
+    agent any
+
+    stages {
+        stage('SCM-Checkout') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Application-Build ') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Deploy to Test-Environment') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+}
+
+		Jenkins Architecture :
+			-	Master/Slave Architecture
+				
+				VM - Jenkins 
+				Jenkins_master 	--> Tools : jdk, jenkins, maven/gradle, python, .netcore,nodejs  
+				
+				Jenkins_Master (VM)	--> jdk, jenkins				
+								==> Used to create the Jenkins CICD pipeline project and schedule it to run in slave nodes.
+					Jenkins_Slave1 (VM) --> git, jdk, maven 			# Is a Build Environment
+								==> Used to perform Build/Unit Testing and Create Artifacts
+
+				QA_Server (VM) 
+				
+				UAT_Server (VM) 
+				
+				Prod_Server (VM)
+				
+		Non-Prod 
+		
+			Dev 	
+			Build 
+			Test-Environment	
+				QA 
+				UAT 
+	
+		SSH Connection:
+		
+			host_name
+			user_name
+			User_credentials 
+				Authentication Methods:
+					- Password based Authentication
+					- Key based Authentication
+						- Private & Public Key 
+					- Token based Authentication
+					- Passwordless Authentication
+				
+
+	
+Configuration of Jenkins Master & Slave Node:
+
+Ubuntu 20.04 --> Tools git, jdk, maven
+Integrate Jenkins_Slave with Master
+
+		Create and Configure Jenkins Slave Node ::::
+		
+		
+				Jenkins_Master(VM) 				Tools: git, jdk, jenkins 
+					Jenkins_Slave_Node1(VM)		Tools: git, jdk, maven
+				Through SSH, connect the Jenkins Master & Slave Nodes
+		
+		
+		
+#Configure Slave Node1 for Java Maven App. :
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Launch an Ubuntu v20.04 Machine : 
+
+sudo -i
+
+apt update -y 
+
+Install Java ::
+
+sudo apt update -y 
+sudo apt install openjdk-11-jre -y
+java -version
+
+Install GIT :
+
+sudo apt install git -y
+
+Install Maven - Build Tool :
+https://maven.apache.org/install.html
+
+sudo apt install maven -y 
+
+
+Create User in Jenkins Slave Machine & Create SSH Keys 
+
+	SSH Keys --> is composed of public and private keys 
+
+
+#Add User : 
+
+useradd devopsadmin -s /bin/bash -m -d /home/devopsadmin
+
+su - devopsadmin
+
+#ssh-keygen
+
+#for Ubuntu ::
+ssh-keygen -t rsa -b 2048 -m PEM
+
+
+ls ~/.ssh 
+
+#You should see following two files:
+
+#id_rsa - private key
+#id_rsa.pub - public
+
+
+cat id_rsa.pub > authorized_keys
+
+chown -R devopsadmin /home/devopsadmin/.ssh
+chmod 600 /home/devopsadmin/.ssh/authorized_keys
+chmod 700 /home/devopsadmin/.ssh
+
+
+In Jenkins Master - Add Node Configuration
+		
+		Goto Manage Jenkins - Add New Node Configuration
+		
+		Create Application Build using Maven in Slave Node 
+		
+pipeline {
+    agent { label 'JSlave_Node1' }
+
+    stages {
+        stage('SCM-Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+				git 'https://github.com/LoksaiETA/Java-mvn-app2.git'
+				
+            }
+        }
+        stage('Application-Build ') {
+            steps {
+                echo 'Hello World'
+                sh 'mvn test'
+            }
+        }
+        stage('Deploy to Test-Environment') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+}
+
+
+	Maven Build Tools :
+	
+		- pom.xml ==	Used to define the dependencies and plugins 
+		
+		- maven goal ==	Is the actual task to perform using maven 
+			- clean -- Used to clean-up the target folder
+			- compile -- Just Compile the code 
+			- test 		-- Compile and perform unit testing 
+			- package   -- Compile, perform unit testing and create artifacts ( *.war)
+							Created in a target folder within workspace
