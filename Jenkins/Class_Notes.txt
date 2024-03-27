@@ -448,3 +448,265 @@ pipeline {
 			- test 		-- Compile and perform unit testing 
 			- package   -- Compile, perform unit testing and create artifacts ( *.war)
 							Created in a target folder within workspace
+
+
+#######################
+Day 8 - 27th Mar. 2024
+#######################	
+
+	CICD Pipeline :
+	
+		1. SCM_Checkout
+		2. Application-Build	- (*.war)
+		
+		3. Deployment
+		
+		Target/Hosted Server (VM) - Ubuntu v20.04
+			- JDK pkg
+			- Tomcat Web Application Server 
+			
+
+				Jenkins_Master(VM) 				Tools: git, jdk, jenkins 
+					Jenkins_Slave_Node1(VM)		Tools: git, jdk, maven
+					
+				Tomcat_Server (VM)				Tools: jdk,tomcat
+				
+######################Install TOMCAT Application Server on Ubuntu :::
+
+#Launch VM - Ubuntu v20.04
+#Update inbound bound rule - Tomcat - default port : 8080
+
+sudo -i
+
+sudo apt update -y 
+
+
+sudo apt install openjdk-11-jre -y 
+java -version
+
+#edit /etc/profile & add JAVA_HOME
+
+#/usr/lib/jvm/java-11-openjdk-amd64/
+
+vi /etc/profile
+
+java-11-openjdk-amd64
+
+
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+
+source /etc/profile
+
+Install Tomcat ::  https://tomcat.apache.org/download-80.cgi
+
+https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.100/bin/apache-tomcat-8.5.100.tar.gz
+
+cd /opt
+wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.100/bin/apache-tomcat-8.5.100.tar.gz
+
+tar -xvzf /opt/apache-tomcat-8.5.100.tar.gz
+
+mv apache-tomcat-8.5.100 tomcat
+
+#Start Tomcat Server:
+#Goto:
+
+cd /opt/tomcat/bin
+./startup.sh
+
+using public ip and port 8080
+
+To Access Tomcat Application: Open web browser :
+
+http://<Public_IP_Address>:8080/
+
+E.g.: http://13.201.70.24:8080/
+
+###########################################
+
+#Add User : 
+
+
+
+useradd devopsadmin -s /bin/bash -m -d /home/devopsadmin
+
+su - devopsadmin
+
+#ssh-keygen
+
+#for Ubuntu ::
+ssh-keygen -t rsa -b 2048 -m PEM
+
+-
+ls ~/.ssh 
+
+#You should see following two files:
+
+#id_rsa - private key
+#id_rsa.pub - public
+
+
+cat id_rsa.pub > authorized_keys
+
+chown -R devopsadmin /home/devopsadmin/.ssh
+chmod 600 /home/devopsadmin/.ssh/authorized_keys
+chmod 700 /home/devopsadmin/.ssh
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#make devopsadmin user as a owner to tomcat dir :
+
+chown -R devopsadmin /opt/tomcat
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~				
+
+Jenkins_Master 
+	Slave_Node			*.war 
+	
+Tomcat 			*.war 
+
+	- HostName 
+	- UserName 			devopsadmin
+	- Credentials 
+	
+Deployment :::
+
+	Copying the artifacts from once Source server to Target Server	
+	
+	Source_Server													Target_Server 
+	
+		Slave_Node 														Tomcat_Server
+		
+			target/*.war					==>								/opt/tomcat/webapps/*.war
+			
+			
+	Integrate Tomcat Server with Jenkins :::
+	
+		- Publish over ssh plugins 
+			- Used to connect to remote server and copy the artifacts 
+				Install with restart option using Plugin Manager
+				
+				use private ip_addr - host name 
+	
+	Create CICD Pipeline ::
+	
+sshPublisher(publishers: [sshPublisherDesc(configName: 'Edu_Tomcat', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: 'target/', sourceFiles: 'target/mvn-hello-world.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+
+Post Build Actions :
+			failure
+			success 
+			unstable 
+
+pipeline {
+    agent { label 'JSlave_Node1' }
+
+    stages {
+        stage('SCM-Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+				git 'https://github.com/LoksaiETA/Java-mvn-app2.git'
+				
+            }
+             post {
+                failure {
+                  sh "echo 'Send mail on failure'"
+					mail bcc: 'l@gmail.com', body: "${BUILD_URL} The Job Status", cc: 'l@gmail.com', from: '', replyTo: '', subject: 'SCM Checkout Failed', to: 'l@gmail.com,l@gmail.com,l@gmail.com'
+				}
+              }
+			
+        }
+        stage('Application-Build ') {
+            steps {
+                echo 'Hello World'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Deploy to Tomcat_Server') {
+            steps {
+				script {
+				sshPublisher(publishers: [sshPublisherDesc(configName: 'Edu_Tomcat', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: 'target/', sourceFiles: 'target/mvn-hello-world.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+			}
+            }
+             post {
+                success {
+                  sh "echo 'Send mail on Successful deployment'"
+					mail bcc: 'l@gmail.com,hgfhf@jgf.com', body: "${BUILD_URL} The Job Status", cc: 'l@gmail.com', from: '', replyTo: '', subject: 'Deployment Successful', to: 'l@gmail.com,l@gmail.com,l@gmail.com'
+				}
+                failure {
+                  sh "echo 'Send mail on Failed deployment'"
+					mail bcc: 'l@gmail.com', body: "${BUILD_URL} The Job Status", cc: 'l@gmail.com', from: '', replyTo: '', subject: 'Deployment Failed', to: 'l@gmail.com,l@gmail.com,l@gmail.com'
+				}
+              }
+        }
+    }
+}
+
+
+mvn-hello-world.war_v1.0		--> 
+mvn-hello-world.war_v1.1		--> 
+mvn-hello-world.war_v1.2		--> 
+mvn-hello-world.war_v1.3		--> 
+
+	Artifactory repository - Jfrog / Az-Artifact
+	
+	openjdk-11-jre
+
+
+
+
+Manual ::
+
+
+CICD ;; 
+
+
+	Build Triggers :::
+	
+		- Build Periodic 
+				- It is used to schedule the job to run based on the crontab 
+					
+					8AM,12PM,3PM		- Daily bases 
+					
+		Non-Prod Server 										Prod_Servers 
+
+			dev/build/qa/uat server 										prod_servers
+			8AM to 10PM
+			
+			Jenkins_Job1 - start at 8aM
+			Jenkins_Job2 - stop at 10PM
+		
+		
+		- github webook
+		
+			Setup github webhook!
+				http://20.197.33.227:8080/github-webhook
+		
+		- Poll SCM 
+		
+			It is used to schedule the job based on crontab, only if there is any changes happened in the repo.
+			
+			Eg.: 
+			
+				Test Cycles :::
+				
+					8AM,12PM,3PM		- Daily bases 
+			
+	
+		
+SMTP Server :
+smtp.gmail.com
+
+SMTP Authentication
+
+SMTP Port :: 465
+
+Login to Gmail :::
+
+Click Manage Account Settings
+
+@Left side panel - select Security 
+
+MFA --> mobile#
+App Password = 16 bytes of App Password. vltzr var
+What ? window
+Which Appln - email		
