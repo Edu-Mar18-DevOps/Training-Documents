@@ -1,0 +1,61 @@
+#######################
+Day 9 - 28th Mar. 2024
+#######################	
+
+	- IAC Tools ::
+	
+		Infra-Structure As Code :
+		
+		Infra-Structure Management Team 
+		
+		DevOps Team 
+		
+		
+		Virtual Machines --> 
+		
+		20 VMs --> Test Environment
+		
+		200 VMs has to be created/Provisioned 
+		
+		Configure 200 VMs with required tools 
+		
+		
+		Server Provisioning & Configurations ??
+		
+		IAC Tools - 
+		
+			Terraform - Used to automate the Provisioning//Creating the Server and its resources 
+			
+			Ansible   - Used to Configure the Infra-Structure - CMS
+			
+		Fundamentals of Ansible and Terraform ::
+		
+		Ansible :
+		
+			- Why Ansible ? 
+			- Ansible Architecture
+			- Ansible Components 
+				- Ansible Inventory
+				- Modules 				# It is script/code that will be injected in the target node and run.
+				- config file 
+			- Working with Ansible Modules 
+				- Ansible Adhoc Commands		
+						- Is used to run a specific Module at a time
+								Eg. Install git in a target node 
+									apt module 
+									
+				- Ansible Playbooks using *.yaml									pipeline scripts 
+						- Playbooks are used to execute series of modules
+						- It can be reusable 
+						- It is written using yaml script 
+						- Configure Slave_Node 
+								- git 
+								- jdk 
+								- maven 				
+
+			- Ansible Misc. Features 
+			- Ansible Roles 
+			
+			
+			
+		Installation of Ansible ::
