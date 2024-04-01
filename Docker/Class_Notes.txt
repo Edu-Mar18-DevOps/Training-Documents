@@ -1,0 +1,106 @@
+#######################
+Day 11 - 1st Apr. 2024
+#######################		
+	
+	- Containerization using Docker ::::
+	
+	Cloud Computing :
+	
+	Virtual Machine (VM) ::: Why we need ?
+	
+		- Hardware level Virtualization
+		- VM are created using Hypervisor 
+		- It is used to run the Operating System 
+		- It consume more space and time to boot-up the VM.
+	
+	Containers :
+	
+		- OS level Virtualization
+		- Containers are Created using Container - Engine.
+		- It is used to run the Application/Task, NOT Operating System
+		- If we run a Container without any task, the Container will immediately go to EXIT State.
+		- It consume less space and time to start the application.
+		- Containers run in a completly isolated environment
+			- In the base OS - 	Control Group
+								Name space 
+								
+	Containerization : Is a Process :::
+	
+		Using this process, we can reduce the no. of Vitual Machines 
+		Eliminate the Environments related dependencies during deployments 
+		
+		
+	Infra-Structure Perspective:::
+	
+			Jenkins_Master (VM)	--> jdk, jenkins				
+							==> Used to create the Jenkins CICD pipeline project and schedule it to run in slave nodes.
+				Jenkins_Slave1 (VM) --> git, jdk, maven 
+				Jenkins_Slave2 (VM) --> git, python
+				Jenkins_Slave2.1 (VM) --> git, python
+				Jenkins_Slave3 (VM) --> git, .netcore
+				Jenkins_Slave4 (VM) --> git, Angualar/NodeJS
+			
+	Containerization : Is a Process :::
+	
+			Jenkins_Master (VM)	
+				Jenkins_Slave (VM)
+					- Install Container Engine 
+						C1	git, jdk, maven
+						C2  git, python
+						C3  git, python
+						C4  git, .net core
+						C5  git, Angualar/NodeJS
+	
+	Developers/Deployment Perspective :::
+	
+			Developer :
+			
+				DEV :
+					Code the Application 
+					
+					Build 	--> Create Artifact - (*.war)			mywebapp_v1.0.war
+					Test the artifacts - Unit Testing 
+							jdk11,tomcat8.5 
+			
+				QA :
+							jdk17,tomcat10 --> mywebapp_v1.0.war  - Running 
+					
+				UAT :
+							jdk,tomcat --> mywebapp_v1.0.war  - Running 
+							
+				PROD :
+							jdk,tomcat --> mywebapp_v1.0.war  - Running 
+	
+	
+			Solution :
+			Developer :
+			
+				DEV :
+					Code the Application 
+					
+					Build 	--> Create Artifact - (*.war)			mywebapp_v1.0.war
+					Test the artifacts - Unit Testing 
+							jdk11,tomcat8.5 			
+	
+					Create Package : mywebapp_pkg1(mywebapp_v1.0.war,jdk11,tomcat8.5)  --> Application Image.
+					Deploy the Application Package to higher environments
+	
+				QA :
+							mywebapp_pkg1 
+							using Container Engine, Create a container and run the application
+							
+		
+		Terminologies :::
+		
+			- Container Engine 
+			- Image 
+			- Container
+			- Container Registry
+				- Contiainer Repository
+				
+				
+				git - 
+				
+				tomcat - 
+			
+		
