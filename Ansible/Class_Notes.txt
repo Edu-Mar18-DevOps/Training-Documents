@@ -79,6 +79,25 @@ Day 10 - 29th Mar. 2024
 		- Ansible Roles 
 		
 		
-		
+#######################
+Day 11 - 1st Apr. 2024
+#######################		
+
+
+	- Handlers 
+	- Loops 	
+	- Ansible Roles 
+	- Ansible Roles 
+	
+	ansible galaxy : https://galaxy.ansible.com/ui/
+	
+	ansible-galaxy role install wms_ansible.tomcat
+	
+	GUI - 
+	
+	<public_ip_addr>:8080/mvn-hello-world			# Tomcat
+	
+	gitlab-ci (*.yaml)  ==> jenkins 
+			
 		
 		
