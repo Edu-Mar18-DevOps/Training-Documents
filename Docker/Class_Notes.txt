@@ -103,4 +103,297 @@ Day 11 - 1st Apr. 2024
 				
 				tomcat - 
 			
+	
+#######################
+Day 12 - 2nd Apr. 2024
+#######################			
 		
+	Terminologies :::
+	
+		- Container Engine 
+		- Image 
+		- Container
+		- Container Registry
+			- Contiainer Repository
+			
+	Installation of Docker Container Engine 
+	
+	Working with Docker CLI Commands :
+	
+	run
+	create image 
+	volumes 
+	port mapping 
+	publish docker images 
+	Container Orchestration Tool 
+		
+	Containerization :
+	
+		- It is a process of packaging the application along with its dependencies.
+		
+	- Container Engine 
+		- Docker Container Engine - used to create Container Images and Manage/Run the Containers
+		
+	- Image 
+		- Is a Static file that defines the properties of Container.
+		- Non-Executable 
+		- It composed of various layers.
+		
+		Create Image : mywebapp_pkg1(mywebapp_v1.0.war,jdk11,tomcat8.5)  --> Application Image.
+		
+		
+	- Container
+		- Containers are the executable units of Images.
+		
+	- Container Registry
+		- It is used to Manage and version control the Container Images 
+		- Dockerhub
+		- hub.docker.com
+		
+	- Contiainer Repository						
+		- It is a sub-set of Container Registry
+		
+			
+	Installation of Docker Container Engine :::  https://docs.docker.com/engine/install/
+	
+		sudo -i
+		
+		apt install docker.io -y
+	
+	Docker Cli Commands ::
+	
+	
+	docker --version
+	
+	docker images 
+	
+	docker ps 
+	
+	docker ps -a
+	
+	
+	docker pull centos		# Used to Download an images from docker hub to local machine 
+	
+	docker run <image_name>	# used to Create/run the container 
+	
+	Docker Run Command Options:
+	
+		docker run :: Modes of Execution :
+		
+		- Attached/Foreground Mode			# Default - Hold the terminal till the process completes.
+			docker run <image_name>
+	
+		- Detached/Background Mode 
+			docker run -d <image_name>
+		
+		- Interactive Mode 
+			docker run -it <image_name> bash 	# Used to create 
+		
+	docker inspect <image_name> 			# Used to Inspect any Container Objects 
+	
+	docker history <image_name>
+	
+	docker exec -it <Container_id> bash		# To login to the running container.
+	
+		docker exec -it 32ee5be54a4d bash
+		
+	docker run <image>
+	
+	docker logs <container_id> 				# Used to capture the application container log 
+	
+	Port Mapping / Port Binding :
+	
+		- Is used to Map the Container Port and Host port
+		
+		docker run -it tomcat:8.0 bash 
+		
+		docker run -it -p 8085:8080 tomcat:8.0
+		
+		-p <host_port>:<container_port>
+		
+	docker start <container_id>
+	
+	docker stop <container_id>
+	
+	Create Container Image :::
+	
+	docker commit
+		- Is used to create a container images based on the existing container.
+
+		docker commit <existing_container_id> <new_container_image_name>
+
+		Eg>: 
+		
+		docker commit 6417464a955b loksaieta/edu-centos-git:v1.0
+
+
+	docker build 
+	
+		- Is used to create a container image from the scratch based on the Dockerfile definitions
+		
+		Dockerfile - Composed of various Instrustions to create layers of Image
+		
+		Eg.: 
+		
+		docker build -t loksaieta/edu-debian-git:v1.0 .
+
+		docker run -it loksaieta/edu-debian-git-mvn:v1.0	
+
+		FROM debian
+		RUN apt-get update
+		RUN apt-get install git -y
+		RUN apt-get install maven -y
+		
+		Dockerfile :
+		
+		FROM tomcat 
+		COPY target/mvn-hello-world.war usr/lib/tomcat/webapps/
+		
+		
+		Create Image ; 
+		
+			myweb-app:v1.0 ==> publish to dockerhub
+			
+			pull it to any target machine
+
+		IAC ::
+		
+		
+	
+	
+	AWS	- ECS,ECR,EKS 
+	
+	AZ - ACS,ACR,AKS 	
+
+    1  apt-get update -y
+    2  sudo apt install openjdk-11-jre -y
+    3  java --version
+    4  sudo apt install maven -y
+    5  mvn -version
+    6  git --version
+    7  clear
+    8  useradd devopsadmin -s /bin/bash -m -d /home/devopsadmin
+    9  su - devopsadmin
+   10  apt update -y
+   11  clear
+   12* apt install docker.io -y
+   13  clear
+   14  docker --version
+   15  docker images
+   16  docker ps
+   17  docker ps -a
+   18  docker images
+   19  docker pull centos
+   20  docker images
+   21  docker run centos
+   22  docker ps
+   23  docker ps -a
+   24  docker run centos sleep 20
+   25  docker run -d centos sleep 20
+   26  docker ps
+   27  docker run centos sleep 20
+   28  clear
+   29  docker run -it centos bash
+   30  docker inspect centos
+   31  clear
+   32  docker ps
+   33  docker ps -a
+   34  docker inspect aacfe98991f8
+   35  docker history centos
+   36  clear
+   37  docker ps -a
+   38  docker images
+   39  docker run -d centos sleep 30
+   40  docker ps -a
+   41  docker exec -it 32ee5be54a4d bash
+   42  docker ps -a
+   43  clear
+   44  docker images
+   45  docker run ubuntu
+   46  docker ps -a
+   47  docker run -d centos sleep 20
+   48  docker ps
+   49  docker log dc3a876ecda3
+   50  docker logs dc3a876ecda3
+   51  docker ps
+   52  docker run -d centos sleep 30
+   53  docker ps
+   54  docker logs 547ec9e7ed91
+   55  clear
+   56  docker ps -a
+   57  docker run -it tomcat:8.0 bash
+   58  clear
+   59  docker run -it -p 8085:8080 tomcat:8.0
+   60  clear
+   61  history
+
+   10  docker ps
+   11  docker ps -a
+   12  docker ps
+   13  clear
+   14  docker ps
+   15  docker ps -a
+   16  docker ps
+   17  clear
+   18  docker ps
+   19  docker run -it -p 8086:8080 tomcat:8.0
+   20  clear
+   21  docker ps
+   22  docker ps -a
+   23  docker ps
+   24  docker stop 6417464a955b
+   25  docker ps -a
+   26  clear
+   27  history
+
+   10  clear
+   11  docker ps
+   12  clear
+   13  docker ps
+   14  docker run centos sleep 20
+   15  asdf
+   16  clear
+   17  docker run -d centos sleep 20
+   18  docker ps
+   19  docker stop 2c1d6f0143ce 47b448fc82a5
+   20  docker ps
+   21  docker ps -a
+   22  docker start c78d690b4d6a
+   23  docker ps
+   24  docker stop c78d690b4d6a
+   25  clear
+   26  docker images
+   27  docker run -it debian bash
+   28  docker start 6417464a955b
+   29  docker ps
+   30  docker exec -it 6417464a955b bash
+   31  clear
+   32  docker ps -a
+   33  docker images
+   34  docker commit 6417464a955b loksaieta/edu-centos-git:v1.0
+   35  docker images
+   36  docker run -it loksaieta/edu-centos-git:v1.0 bash
+   37  mkdir docker-contents
+   38  cd docker-contents/
+   39  vi Dockerfile
+   40  cat Dockerfile
+   41  docker build -t loksaieta/edu-debian-git:v1.0 .
+   42  docker images
+   43  cat Dockerfile
+   44  vi Dockerfile
+   45  clear
+   46  docker build -t loksaieta/edu-debian-git:v1.0 .
+   47  docker images
+   48  docker history loksaieta/edu-debian-git:v1.0
+   49  cat Dockerfile
+   50  vi Dockerfile
+   51  docker build -t loksaieta/edu-debian-git-mvn:v1.0 .
+   52  cat Dockerfile
+   53  docker images
+   54  docker history loksaieta/edu-debian-git-mvn:v1.0
+   55  docker run -it loksaieta/edu-debian-git-mvn:v1.0
+   56  docker ps -a
+   57  cat Dockerfile
+   58  clear
+   59  history
+
