@@ -1,0 +1,101 @@
+#######################
+Day 13 - 3rd Apr. 2024
+#######################		
+
+Kubernetes :::
+
+	
+		- It is a Open-Source Container Orchestration Tool 
+		- Kubernetes is used to Deploy any type of Containers.
+		- It is used to ensure high availability of the Applications/services running thru Containers.
+		- Used to Ensure High Availability of Containers by creating Replicas of Containers.
+		- It supports Auto-Scaling & Load Balancing.
+		- Self-Healing
+		
+	- Kubernetes Architecture
+	
+		- Components of Kubernetes Architecture
+	
+	- Kubernetes Concepts / Terminologies 
+	
+		- Pod 
+		- kubectl
+		- Namespace 
+		- NodeSelector
+		- Controller Objects 
+			- Replicaset
+			- Replication Controller 
+			- Daemonset
+			- Deployment Controller Object
+		- Volumes 
+			- ConfigMaps
+			- Secrets
+			- Hostpath 
+			- Persistant Volume 
+			- Persistant Volume Claim 
+		- Kubernetes Services 
+			- Nodeport Service 
+			- ClusterIP Service 			
+			- Load Balancer
+			
+			
+	
+	-	Kubernetes Architecture	::::
+	
+		- Kubernetes_Master 	(VM)		- Used to verify the deployment request and schedule it to worknodes 
+			Kubernetes Cluster :
+				Kubernetes_WorkNode1 (VM)	- Deployed Pod1
+				Kubernetes_WorkNode2 (VM)	- Deployed Pod1
+				Kubernetes_WorkNode3 (VM)
+
+		- Kubernetes_Master 
+			Kubernetes Cluster1 :
+				Kubernetes_WorkNode1
+				Kubernetes_WorkNode2
+				Kubernetes_WorkNode3
+			Kubernetes Cluster2 :
+				Kubernetes_WorkNode1
+				Kubernetes_WorkNode2
+				Kubernetes_WorkNode3
+
+		- Kubernetes_Master
+			- Kubernetes_Master1 
+				Kubernetes Cluster1 :
+					Kubernetes_WorkNode1
+					Kubernetes_WorkNode2
+					Kubernetes_WorkNode3
+				Kubernetes Cluster2 :
+					Kubernetes_WorkNode1
+					Kubernetes_WorkNode2
+					Kubernetes_WorkNode3
+			- Kubernetes_Master2
+				Kubernetes Cluster1 :
+					Kubernetes_WorkNode1
+					Kubernetes_WorkNode2
+					Kubernetes_WorkNode3
+				Kubernetes Cluster2 :
+					Kubernetes_WorkNode1
+					Kubernetes_WorkNode2
+					Kubernetes_WorkNode3
+					
+	
+	- Components of Kubernetes Architecture
+	
+		Cluster definition :
+			Kubernetes_Master 
+				- API Server 
+				- ETCD 
+				- Scheduler 
+				- Controller Manager 
+				
+			Kubernetes_WorkNodes
+				- Kubelet 
+				- Kubeproxy 
+				- CRI - Container-D
+				
+				
+	- Installation and Configuration of Kubernetes Architecture:
+	
+		- minikube 
+		
+		- kubeadm 
