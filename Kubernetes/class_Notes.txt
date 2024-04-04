@@ -99,3 +99,72 @@ Kubernetes :::
 		- minikube 
 		
 		- kubeadm 
+
+
+#######################
+Day 14 - 4th Apr. 2024
+#######################		
+	
+	
+		
+		- Pod 
+		
+		- kubectl
+
+		- Kubeadm 
+		
+		- Kubelet 
+		
+		- Installation and Configuration of Kubernetes 
+		
+		
+		Kubernetes - Open-Source product 
+		
+			Installation and Configuration of Kubernetes :::
+			
+				https://kubernetes.io/docs/setup/
+
+			Kubernetes_Master
+				Kubernetes_WorkNode1
+				Kubernetes_WorkNode2
+			
+			1. Launch 3 VMs  ( 1 + 2 ) - Ubuntu 
+			2. Open all the required ports - There should not be any restrictions between the nodes 
+			
+			All the Nodes (K_Master & Worker_nodes) :
+			
+				3. Define the Node Names 
+				4. Install Docker 
+				5. Install CRI - Container-D 
+					- Pre-requisites
+					- Install Container-D 
+					- Container-D Configurations
+				6. Install kubeadm, kubectl, kubelet 
+				6.1 - Swap Configuration 
+
+			Only in Master Node :
+				
+				7. kubedm init 
+					- Setup the network plugins and access to kube configs 
+				
+			Only in Worker_nodes :
+			
+				8. kubeadm join 
+			
+		
+		Managed Services :
+		
+		AWS 		-- EKS 
+		AZURE 		-- AKS 
+		GCP 		-- GKE
+		
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
