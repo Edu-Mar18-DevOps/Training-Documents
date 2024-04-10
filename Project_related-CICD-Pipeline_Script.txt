@@ -1,0 +1,177 @@
+Process :::
+
+CI-CD Pipeline :::
+
+
+1. SCM_Checkout 	--> 	Application-Build		--> 	Deploy_to_QA
+
+Pipeline1:
+
+	SCM-Checkout --> Application-Build	--> Create_QA_Server(terraform) --> Configure_QA_Server(Ansible_playbook)  --> Deploy_to_NewQA_Server --> Automate_QA_Testing --> Destroy QA_Server --> Promote to UAT_Environment 
+
+Scenario 2:
+
+Pipeline1:
+
+	SCM-Checkout --> Create_QA_Server(terraform) --> Configure_QA_Server(Ansible_playbook)
+	
+Pipeline2
+
+	SCM_Checkout 	--> 	Application-Build		--> 	Deploy_to_QA
+	
+
+CICD - Pipeline Demo :::
+
+
+	Pipeline Stages :::
+	
+		SCM_Checkout
+		Application-Build
+		Deploy_to_QA
+		
+		
+	
+	Servers and Tools :::
+	
+		Jenkins_Master		--> Created Jobs 
+			Jenkins_Slave1	--> Build *.war ==> Application_Image -- 
+		Kubernetes_Master 
+			Kubernetes_WorkNode1
+			Kubernetes_WorkNode2
+
+
+
+	Servers and Tools :::
+	
+		Jenkins_Master		--> jdk,jenkins,git 			--> Created Jobs 
+			Jenkins_Slave1	--> git,jdk,maven,docker-engine --> Create *.war, Build Docker Image, Publish to docker_hub 
+		Kubernetes_Master 
+			Kubernetes_WorkNode1
+			Kubernetes_WorkNode2
+
+			
+	Pipeline Stages :::
+	
+		SCM_Checkout			Clone the repo 
+		Application-Build		Create *.war
+		Build Docker Image 
+		Publish to DockerHub
+		Deploy to Kubernetes_Cluster
+	
+
+pipeline {
+
+    agent { label 'slave1' }
+
+	environment {	
+		DOCKERHUB_CREDENTIALS=credentials('dockerloginid')
+	}
+	
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+				git 'https://github.com/LoksaiETA/devops-java-webapp.git'
+            }
+        }
+        stage('Application_Build') {
+            steps {
+                echo 'Perform Maven Build'
+				sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+				sh 'docker version'
+				sh "docker build -t loksaieta/loksai-eta-app:${BUILD_NUMBER} ."
+				sh 'docker image list'
+				sh "docker tag loksaieta/loksai-eta-app:${BUILD_NUMBER} loksaieta/loksai-eta-app:latest"
+            }
+        }
+        stage('Approve - Publish_to_Docker_Registry'){
+            steps{
+                
+                //----------------send an approval prompt-------------
+                script {
+                   env.APPROVED_DEPLOY = input message: 'User input required Choose "Yes" | "Abort"'
+                       }
+                //-----------------end approval prompt------------
+            }
+        }
+		stage('Login2DockerHub') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+		stage('Publish_to_Docker_Registry') {
+			steps {
+				sh "docker push loksaieta/loksai-eta-app:latest"
+			}
+		}
+        stage('Approve - Deployment'){
+            steps{
+                
+                //----------------send an approval prompt-------------
+                script {
+                   env.APPROVED_DEPLOY = input message: 'User input required Choose "Yes" | "Abort"'
+                       }
+                //-----------------end approval prompt------------
+            }
+        }
+		stage('Deploy to Kubernetes') {
+            steps {
+				script {
+				sshPublisher(publishers: [sshPublisherDesc(configName: 'Kubernetes_Master', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'kubectl apply -f k8smvndeployment.yaml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+			}	
+            }
+		}
+    }
+}
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loksai-eta-deploy
+  labels:
+    app: loksai-eta-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: loksai-eta-app
+  template:
+    metadata:
+      labels:
+        app: loksai-eta-app
+    spec:
+      containers:
+      - name: loksai-eta-container
+        image: loksaieta/loksai-eta-app
+        ports:
+        - containerPort: 8080
+		volumeMounts:
+		- name: test-vol
+		  mountPath: "/etc/non-sensitive-data"
+		  readOnly: true
+  volumes:
+    - name: test-vol
+      configMap:
+        name: nginx-configmap-vol
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loksai-eta-np-service
+  labels:
+    app: loksai-eta-app
+spec:
+  selector:
+    app: loksai-eta-app
+
+  type: NodePort
+  ports:
+  - nodePort: 31028
+    port: 8080
+    targetPort: 8080
