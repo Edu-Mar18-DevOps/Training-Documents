@@ -1,0 +1,109 @@
+			
+#######################
+Day 17 - 9th Apr. 2024
+#######################			
+			
+	IAC - 
+	
+	Infra-Structure Provisioning using Terraform 
+	
+	Architecture
+	
+	Terraform Working Model 
+	
+		- Identify scope (Target Platform) 
+		
+		- Write Terraform Script to provision the resource 
+		
+		- Terraform Init - Initialize Terraform Provider 
+		
+		- Terraform Plan - Preview the Script and resource definition 
+		
+		- Terraform Apply - Apply the actual changes in target platform 
+		
+	
+	Terraform Provioner
+	
+		- are based on the target 
+		
+		aws provider for terraform 
+		
+	Working with Terraform: 
+	
+	- Install Terraform 			https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+	
+		In Windows
+		
+		https://developer.hashicorp.com/terraform/install
+		
+		Choose Windows - AMD64 Version
+		
+		download 
+		
+		extract 
+		
+		Create Environment variable 
+		
+		Install :
+			Visual Studio Code IDE - To create Terraform Scripts and Execute Terraform Command 
+		
+			https://code.visualstudio.com/download
+		
+		Install Terraform Extension 
+		
+		
+Next :
+
+	Terraform Demo 
+	
+	CICD Pipeline Demo 
+	
+	
+	can you give brief on variables, modules and state file
+	
+	
+#######################
+Day 18 - 10th Apr. 2024
+#######################	
+
+	Terraform Demo 
+
+	Terraform Working Model 
+	
+		- Identify scope (Target Platform) 
+		
+		- Write Terraform Script to provision the resource 
+		
+		- Terraform Init - Initialize Terraform Provider 
+		
+		- Terraform Plan - Preview the Script and resource definition 
+		
+		- Terraform Apply - Apply the actual changes in target platform 
+		
+		
+	In the target : 
+	
+		Create Acces Key & Secret Key 
+		
+	CICD Pipeline Demo ::: 
+	
+	
+	- Create/Add Resource 	+
+	
+	- Delete/Destroy 		-
+	
+	- Update/Change 		~
+	
+	
+	Modules ::
+		main-tf - resource - it used to create single resource
+		
+		vpc-testenvi1.tf - Module   - create multiple resource definition
+		
+		vpc-testenvi2.tf - Module   - create multiple resource definition	
+	
+	
+	Variables ::
+	
+	
+	terraform plan -var "ami=ami-05295b6e6c790593o"
