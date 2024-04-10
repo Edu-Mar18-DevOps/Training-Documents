@@ -159,10 +159,163 @@ Day 14 - 4th Apr. 2024
 		GCP 		-- GKE
 		
 
+
+#######################
+Day 15 - 5th Apr. 2024
+#######################		
+
+		- Pod 
+		- kubectl
+		- Namespace 
+		- NodeSelector
+		- Controller Objects 
+			- Replicaset
+			- Replication Controller 
+			- Daemonset
+			- Deployment Controller Object
+		- Volumes 
+			- ConfigMaps
+			- Secrets
+			- Hostpath 
+			- Persistant Volume 
+			- Persistant Volume Claim 
+		- Kubernetes Services 
+			- Nodeport Service 
+			- ClusterIP Service 			
+			- Load Balancer	
+	
+	
+	- POD 
+	- kubectl Commands 
+	- Expose pod to internet - NodePort Service 
+	
+	
+		- Controller Objects 
+			- Replicaset
+			- Replication Controller 
+			- Daemonset
+			- Deployment Controller Object	
+	
+		- Replicaset					pod = in multiple environments at at time - envi : {'qa', uat'}
+			- Uses set based operator
+			- Can be automatically create by Deployment Controller Object 
+			
+		- Replication Controller 	--> pod = in a environment  					envi : qa			
+			- Equality based Operator 
+			- Manual definition
+				
+
+		- Deployment Controller Object
+		
+			- Used to deploy the pods 					webappimg_v1.0 webappimg_v1.1 
+			- Create Replicas of pods using replicaset 
+			- It used Rolling-Update Deployment Strategy by default 
+				- This is to ensure high availability of applications during upgrade.
+			- Upgrade the applications / Downgrade the Applications without any downtime 
+			- Scale-up
+			- Scale-Down
+			
+			3 replicas of pod running  webappimg_v1.0  ==> webappimg_v1.1
+				pod1 webappimg_v1.0	==> webappimg_v1.1
+				pod2 webappimg_v1.0 ==> webappimg_v1.1
+				pod3 webappimg_v1.0 ==> webappimg_v1.1
+			
+				
+		
+		- Daemonset :: 
+		
+			- Controller Object :
+				- Used to run a copy of pod in all the available nodes.
+				- for Monitoring the nodes.
+				
+		- Volumes 
+			- ConfigMaps
+			- Secrets
+			- Hostpath 
+				- Used to create a volume in the node where the pod gets deployed 
+				- It is a permanent volume in that node 
+				- Even if the Pod gets deleted that hostpath volume exist.
+			
+			- Persistant Volume 
+			- Persistant Volume Claim 
+			
+
+#######################
+Day 16 - 8th Apr. 2024
+#######################	
+
+
+		Kubernetes 
+			
+		- Deployment Controller Object
+		
+			- Used to deploy the pods 					webappimg_v1.0 webappimg_v1.1 
+			- Create Replicas of pods using replicaset 
+			- It used Rolling-Update Deployment Strategy by default 
+				- This is to ensure high availability of applications during upgrade.
+			- Upgrade the applications / Downgrade the Applications without any downtime 
+			- Scale-up
+			- Scale-Down			
+			
+			
+		- Volumes :
+			ConfigMaps 
+			
+			Secrets worker-node2   
+		
+		- Kubernetes Services 
+			- Nodeport Service 			# Used to expose the pods to internet!
+			- ClusterIP Service 			
+			- Load Balancer	
+			
+			
+		Package Manager :::
+		
+		apt-get 
+		yum 
+		
+		HELM Is a package Manager for Kubernetes Cluster
+		
+		https://helm.sh/docs/intro/install/
+		
+		
+		
+		Namespace ::
+				Logical Partition of Cluster -  10 WNs::
+				
+				Environment : QA / UAT / PROD 
+				
+				
+		Blue-Green Deployment ????
+		
+		Active Server 		_ LIVE Prod server  App_V1.8 - Down
+		
+		Passive Server 		_ App_V1.9	- Active!
+
+		Non-Prod Cluster		- Namespace - dev/qa/uat
+			Kubernetes_Master
+				WN1,2,3,4,5,6
+		
+		Prod Cluster			- Name
+			Kubernetes_Master
+				WN1,2,3,4,5,6,7,8,9,10,11,12,13
+				
+		Namespace - Active_PROD_NS - LIVE v1.8 Stop/down 
+		
+		Namespace - Nexgen_PROD_NS - LIVE v1.9
+		
+
+Next: 
+
+		Fundamentals of Terraform and Prometheus/Grafana  
+		
+		Demo on CICD Pipeline using Java_web_application_App_Code with kubernetes
+		
+		
 	
 	
 	
-	
+
 	
 	
 	
