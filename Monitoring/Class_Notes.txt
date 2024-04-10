@@ -3,7 +3,6 @@ Day 17 - 9th Apr. 2024
 #######################			
 
 
-		Fundamentals of Terraform and Prometheus/Grafana 		
 		
 		Prometheus/Grafana ::
 		
