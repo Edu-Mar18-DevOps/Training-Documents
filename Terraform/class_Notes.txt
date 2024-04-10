@@ -59,8 +59,6 @@ Next :
 	CICD Pipeline Demo 
 	
 	
-	can you give brief on variables, modules and state file
-	
 	
 #######################
 Day 18 - 10th Apr. 2024
