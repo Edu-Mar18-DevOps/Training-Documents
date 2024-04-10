@@ -1,0 +1,64 @@
+#######################
+Day 17 - 9th Apr. 2024
+#######################			
+
+
+		Fundamentals of Terraform and Prometheus/Grafana 		
+		
+		Prometheus/Grafana ::
+		
+		Continuous Monitoring ::
+		
+		Production Support / Monitoring Team :
+		
+			Monitoring Tools : 
+			
+			Infra-Structure Monitoring :
+			
+				- Prometheus/Nagios/Splunk/Dynatrace --> Monitoring Tool 
+				
+					Memory Untilization of Server!
+					
+					Limit - 80% 
+					Notify/Alert the team - Emails / Messenger - Teams / slack 
+					Jenkins / Ansible --> 
+					
+					Jenkins Job - Scheduled to run once in two days to clean up the volume
+					
+					Jenkins_Slave_Node -> Build & Create artifacts
+						clone repo - src_code repo 
+									 *.war
+				
+				- Grafana --> Visualization Tool 
+			
+			Application Monitoring :
+			
+				- AppDynamics / Datadog
+				
+			Agent - runs on the target nodes 
+			
+			Retrieval Process - Used to pull the metrics from target server based on schedule
+			
+			Time Series Data base -- PromQL <==> SQL   ===> Grafana 
+			
+			Hybrid :
+			
+			On-prem & Multi-cloud (aws & azure)
+			
+			
+			Grafana --> Prometheus, Cloud Watch , Azure Monitor will act as the Data Source to Grafana
+			
+			
+			Installation & Configuration of Prometheus/Grafana 
+			
+			
+			Monitoring Kubernetes :::
+			
+			
+			Daemonset :
+			
+			prometheus
+			
+			HELM Package - install prometheus & grafana in Kubernetes cluster
+			
+			
